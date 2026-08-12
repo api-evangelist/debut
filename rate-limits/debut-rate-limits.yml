@@ -1,0 +1,38 @@
+generated: '2026-08-12'
+method: searched
+source: https://www.deinde.com/llms.txt
+
+api: DEINDE Commerce (UCP MCP)
+docs: https://www.deinde.com/llms.txt
+
+limit_count: 0
+note: >-
+  A rate limit is acknowledged but never quantified. The store's own agent instructions
+  say only "Respect rate limits. The MCP endpoint is rate-limited per IP. Back off on 429
+  responses." No number, no window, no burst allowance, and no response-header contract is
+  published anywhere on deinde.com or debutbiotech.com. An agent therefore cannot plan
+  concurrency ahead of time — it can only react to a 429 after it has already been
+  throttled. That is the honest zero recorded here: the signal exists, the budget does not.
+
+limits: []
+
+signaling:
+  status_code_on_exhaustion: 429
+  headers_documented: []
+  headers_observed: []
+  retry_after_documented: false
+  guidance: Back off on 429 responses.
+  scope: per IP address
+
+observed:
+  probed_on: '2026-08-12'
+  requests_made: 3
+  throttled: false
+  note: >-
+    A tools/list, a tools/call and a well-known fetch were issued from a single IP and
+    none was throttled, so no live limit was observed. No X-RateLimit-*, RateLimit-* or
+    Retry-After header appeared on any 200 response.
+
+corporate_site:
+  host: www.debutbiotech.com
+  note: No API, therefore no limits.

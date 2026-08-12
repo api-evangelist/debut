@@ -1,0 +1,46 @@
+generated: '2026-08-12'
+method: probed
+source: https://www.deinde.com/.well-known/oauth-authorization-server
+
+api: DEINDE Commerce (UCP MCP)
+issuer: https://shopify.com/authentication/75476861220
+authorization_endpoint: https://account.deinde.com/authentication/oauth/authorize
+token_endpoint: https://account.deinde.com/authentication/oauth/token
+docs: null
+docs_note: >-
+  Debut publishes no scopes reference of its own. The scope list below is read verbatim
+  from scopes_supported in the authorization-server metadata the DEINDE store serves from
+  its own host; the semantics are Shopify customer-accounts semantics.
+
+scope_count: 4
+scopes:
+- name: openid
+  description: Request an ID token identifying the signed-in customer (OpenID Connect
+    core).
+  source: scopes_supported
+- name: email
+  description: Release the customer's email address and email_verified claim.
+  source: scopes_supported
+- name: customer-account-api:full
+  description: Full access to the Shopify Customer Account API for the authenticated
+    customer — orders, addresses, profile and subscription data for that buyer.
+  source: scopes_supported
+- name: customer-account-mcp-api:full
+  description: Full access to the customer-account MCP surface for the authenticated
+    customer, the buyer-scoped counterpart to the anonymous storefront UCP MCP endpoint.
+  source: scopes_supported
+
+granularity: coarse
+granularity_note: >-
+  Two of the four scopes are ":full" grants. There is no read-only variant and no
+  per-resource decomposition, so an agent that needs to read a buyer's order history must
+  ask for full customer-account access. Scope design is Shopify's, not Debut's.
+
+protected_resource:
+  metadata: https://www.deinde.com/.well-known/oauth-protected-resource
+  resource: https://www.deinde.com
+  authorization_servers:
+  - https://account.deinde.com
+  - https://shopify.com/authentication/75476861220
+  bearer_methods_supported:
+  - header

@@ -1,7 +1,21 @@
 aid: debut
 name: Debut
-description: 'Debut is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'Debut (Debut Biotechnology, Inc.) is a San Diego, California biotechnology
+  company founded in 2019 by Dr. Joshua Britton that combines AI-driven molecular discovery,
+  skin genomics and cell-free biomanufacturing to create novel cosmetic active ingredients
+  and finished skincare formulations. Its BeautyORB platform screens billions of candidate
+  molecules in silico against a skin-health genomic dataset, and the company is vertically
+  integrated from discovery through fermentation, scale-up and formulation, selling
+  ingredients and brand-ready products to beauty manufacturers as well as running its
+  own direct-to-consumer skincare brand, DEINDE. Debut has raised roughly $89M across
+  Series A, Series B (led by BOLD, the L''Oreal venture fund) and later rounds, employs
+  more than 80 people, and was named to the TIME100 Most Innovative Companies 2025.
+  Debut sells molecules and formulations rather than software: debutbiotech.com publishes
+  no developer program, no public API and no machine-readable API contract. Its only
+  agent-reachable API surface is the Shopify-hosted Universal Commerce Protocol (UCP)
+  MCP endpoint on its DEINDE storefront at www.deinde.com, which is live, unauthenticated
+  for catalog and cart operations, and returns full JSON Schema tool definitions.'
+image: https://cdn.prod.website-files.com/697a5ef4d9ca0a3187500d0b/697a5ef4d9ca0a3187500d47_Debut-Favicon.png
 url: https://raw.githubusercontent.com/api-evangelist/debut/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
@@ -12,12 +26,125 @@ created: '2026-08-12'
 modified: '2026-08-12'
 tags:
 - Company
-apis: []
+- Biotechnology
+- Beauty
+- Cosmetics
+- Skincare
+- Ingredients
+- Synthetic Biology
+- Artificial Intelligence
+- Manufacturing
+- Ecommerce
+- Agentic Commerce
+apis:
+- name: DEINDE Commerce (UCP MCP)
+  description: 'The agent-facing commerce API for Debut''s direct-to-consumer skincare
+    brand DEINDE. It is a Shopify-hosted Universal Commerce Protocol (UCP) service exposed
+    over MCP at https://www.deinde.com/api/ucp/mcp, advertised by the store''s own
+    /llms.txt, /agents.md and /.well-known/ucp documents. An anonymous tools/list call
+    returns 13 tools with complete JSON Schema inputs covering catalog search and lookup,
+    cart lifecycle, checkout lifecycle and order retrieval. This is platform-provided
+    commerce plumbing served from Debut''s own host, not a first-party Debut engineering
+    API — Debut publishes no OpenAPI and no developer portal of its own.'
+  humanURL: https://www.deinde.com/llms.txt
+  baseURL: https://www.deinde.com/api/ucp/mcp
+  tags:
+  - Ecommerce
+  - Agentic Commerce
+  - MCP
+  - UCP
+  - Shopify
+  properties:
+  - type: Documentation
+    url: https://www.deinde.com/agents.md
+    description: The store's own canonical agent-facing description of the endpoint; /llms.txt
+      mirrors it. This is the only documentation Debut serves for any API.
+  - type: MCPServer
+    url: mcp/debut-mcp.yml
+  - type: Authentication
+    url: authentication/debut-authentication.yml
+  - type: OAuthScopes
+    url: scopes/debut-scopes.yml
+  - type: Conventions
+    url: conventions/debut-conventions.yml
+  - type: Idempotency
+    url: conventions/debut-conventions.yml
+  - type: ErrorCatalog
+    url: errors/debut-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/debut-rate-limits.yml
+  - type: Plans
+    url: plans/debut-plans-pricing.yml
+  - type: Conformance
+    url: conformance/debut-conformance.yml
+  - type: AgentSkill
+    url: skills/_index.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/debut-domain-security.yml
 - type: Website
-  url: https://www.hiive.com/securities/debut-stock
+  url: https://www.debutbiotech.com/
+- type: Product
+  url: https://www.debutbiotech.com/platform
+  description: The BeautyORB AI ingredient-discovery platform and formulation pipeline.
+- type: About
+  url: https://www.debutbiotech.com/about
+- type: Blog
+  url: https://www.debutbiotech.com/news
+- type: News
+  url: https://www.debutbiotech.com/news
+- type: Support
+  url: https://www.debutbiotech.com/contact-us
+- type: Contact
+  url: https://www.debutbiotech.com/contact-us
+- type: PrivacyPolicy
+  url: https://www.debutbiotech.com/privacy-policy
+- type: TermsOfService
+  url: https://www.debutbiotech.com/terms-of-use
+- type: LinkedIn
+  url: https://www.linkedin.com/company/debut-biotechnology
+- type: Store
+  url: https://www.deinde.com/
+  description: DEINDE, Debut's direct-to-consumer skincare brand (Shopify store
+    debut-beauty.myshopify.com).
+- type: Documentation
+  url: https://www.deinde.com/agents.md
+  description: The DEINDE store's canonical agent-facing documentation for its UCP MCP
+    endpoint — the only API documentation Debut serves from any of its hosts.
+- type: MCPServer
+  url: mcp/debut-mcp.yml
+- type: LLMsTxt
+  url: llms/debut-llms.txt
+- type: WellKnown
+  url: well-known/debut-well-known.yml
+- type: Authentication
+  url: authentication/debut-authentication.yml
+- type: OAuthScopes
+  url: scopes/debut-scopes.yml
+- type: Idempotency
+  url: conventions/debut-conventions.yml
+- type: Conventions
+  url: conventions/debut-conventions.yml
+- type: ErrorCatalog
+  url: errors/debut-problem-types.yml
+- type: RateLimits
+  url: rate-limits/debut-rate-limits.yml
+- type: Plans
+  url: plans/debut-plans-pricing.yml
+- type: Conformance
+  url: conformance/debut-conformance.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Lifecycle
+  url: lifecycle/debut-lifecycle.yml
+
+x-enrichment:
+  date: '2026-08-12'
+  status: enriched
+  artifacts_added: 21
+  pass: local-v1

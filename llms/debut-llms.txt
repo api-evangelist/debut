@@ -1,0 +1,83 @@
+# Debut
+
+> Debut (Debut Biotechnology, Inc.) is a San Diego biotechnology company founded in 2019
+> that combines AI-driven molecular discovery, skin genomics and cell-free biomanufacturing
+> to create novel cosmetic active ingredients and finished skincare formulations. Its
+> BeautyORB platform screens billions of candidate molecules in silico; the company is
+> vertically integrated from discovery through fermentation and formulation, selling
+> ingredients and brand-ready products to beauty manufacturers and running its own
+> direct-to-consumer skincare brand, DEINDE.
+>
+> Debut sells molecules, not software. As of 2026-08-12 debutbiotech.com publishes no
+> developer program, no public API, no OpenAPI and no machine-readable contract of any
+> kind. Its one agent-reachable API surface is the Shopify-hosted Universal Commerce
+> Protocol (UCP) MCP endpoint on the DEINDE storefront.
+
+## APIs
+
+- [DEINDE Commerce (UCP MCP)](https://www.deinde.com/api/ucp/mcp): The store's agent
+  commerce endpoint, JSON-RPC 2.0 over MCP, UCP version 2026-04-08. An anonymous
+  `tools/list` returns 13 tools with complete JSON Schema inputs — `search_catalog`,
+  `lookup_catalog`, `get_product`, `create_cart`, `get_cart`, `update_cart`, `cancel_cart`,
+  `create_checkout`, `get_checkout`, `update_checkout`, `complete_checkout`,
+  `cancel_checkout`, `get_order`. No API key and no registration. Every call requires a
+  `meta["ucp-agent"].profile` URI; `complete_checkout` additionally requires
+  `meta["idempotency-key"]` and contemporaneous buyer approval.
+
+This is platform-provided commerce plumbing served from Debut's own host, not first-party
+Debut engineering. Nothing exposes the BeautyORB discovery platform, the skin-genomics
+dataset, or the formulation pipeline.
+
+## Discovery
+
+- [UCP merchant profile](https://www.deinde.com/.well-known/ucp): versions, MCP endpoint,
+  capabilities, payment handlers.
+- [Store agent instructions](https://www.deinde.com/llms.txt) and
+  [agents.md](https://www.deinde.com/agents.md): the provider's own agent-facing
+  documentation, saved verbatim in this repo.
+- [OAuth 2.0 authorization server metadata](https://www.deinde.com/.well-known/oauth-authorization-server)
+  (RFC 8414), [OpenID configuration](https://www.deinde.com/.well-known/openid-configuration),
+  [protected resource metadata](https://www.deinde.com/.well-known/oauth-protected-resource)
+  (RFC 9728).
+- No A2A agent card and no security.txt on any Debut host — both `/.well-known/agent-card.json`
+  and `/.well-known/agent.json` return 404 on debutbiotech.com and deinde.com.
+
+## Company
+
+- [Website](https://www.debutbiotech.com/)
+- [Platform — BeautyORB](https://www.debutbiotech.com/platform): AI ingredient discovery.
+- [Pipeline](https://www.debutbiotech.com/pipeline): ingredient and product pipeline.
+- [About](https://www.debutbiotech.com/about): founding, leadership, facilities.
+- [News](https://www.debutbiotech.com/news): company announcements (no RSS feed published).
+- [Contact](https://www.debutbiotech.com/contact-us): contact@debutbiotech.com.
+- [Privacy Policy](https://www.debutbiotech.com/privacy-policy)
+- [Terms of Use](https://www.debutbiotech.com/terms-of-use)
+- [LinkedIn](https://www.linkedin.com/company/debut-biotechnology)
+- [DEINDE](https://www.deinde.com/): the direct-to-consumer skincare brand (Shopify store
+  `debut-beauty.myshopify.com`).
+
+## Artifacts
+
+Third-party artifacts produced by API Evangelist from the public surface above:
+
+- [MCP server profile](https://raw.githubusercontent.com/api-evangelist/debut/refs/heads/main/mcp/debut-mcp.yml)
+  and the [verbatim tools/list response](https://raw.githubusercontent.com/api-evangelist/debut/refs/heads/main/mcp/debut-ucp-mcp-tools.json).
+- [Authentication](https://raw.githubusercontent.com/api-evangelist/debut/refs/heads/main/authentication/debut-authentication.yml)
+  and [OAuth scopes](https://raw.githubusercontent.com/api-evangelist/debut/refs/heads/main/scopes/debut-scopes.yml).
+- [Conventions](https://raw.githubusercontent.com/api-evangelist/debut/refs/heads/main/conventions/debut-conventions.yml):
+  idempotency, pagination, money representation, localization, versioning.
+- [Error catalog](https://raw.githubusercontent.com/api-evangelist/debut/refs/heads/main/errors/debut-problem-types.yml)
+  and [rate limits](https://raw.githubusercontent.com/api-evangelist/debut/refs/heads/main/rate-limits/debut-rate-limits.yml).
+- [Conformance](https://raw.githubusercontent.com/api-evangelist/debut/refs/heads/main/conformance/debut-conformance.yml),
+  [lifecycle](https://raw.githubusercontent.com/api-evangelist/debut/refs/heads/main/lifecycle/debut-lifecycle.yml),
+  [plans](https://raw.githubusercontent.com/api-evangelist/debut/refs/heads/main/plans/debut-plans-pricing.yml),
+  [well-known probe](https://raw.githubusercontent.com/api-evangelist/debut/refs/heads/main/well-known/debut-well-known.yml).
+- [Agent skill — deinde-agentic-purchase](https://raw.githubusercontent.com/api-evangelist/debut/refs/heads/main/skills/debut-deinde-agentic-purchase.md).
+
+## Notes
+
+- This is an API Evangelist third-party profile assembled from publicly reachable material.
+  See README.md.
+- generated: 2026-08-12
+- method: generated
+- source: apis.yml + repo artifacts + live probes of debutbiotech.com and deinde.com

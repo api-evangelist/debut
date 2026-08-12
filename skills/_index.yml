@@ -1,0 +1,38 @@
+generated: '2026-08-12'
+method: generated
+source: mcp/debut-ucp-mcp-tools.json (live tools/list of https://www.deinde.com/api/ucp/mcp,
+  2026-08-12) + https://www.deinde.com/llms.txt
+
+provider: Debut Biotechnology, Inc.
+skill_count: 1
+
+skills:
+- name: deinde-agentic-purchase
+  file: skills/debut-deinde-agentic-purchase.md
+  api: DEINDE Commerce (UCP MCP)
+  description: Search Debut's DEINDE skincare catalog, build a cart, and drive a checkout
+    to the point of buyer approval over the store's Universal Commerce Protocol MCP endpoint.
+  operations:
+  - search_catalog
+  - lookup_catalog
+  - get_product
+  - create_cart
+  - update_cart
+  - get_cart
+  - create_checkout
+  - update_checkout
+  - complete_checkout
+  - get_order
+  grounded_in: live MCP tool schemas (13 tools, probed unauthenticated)
+
+note: >-
+  Debut publishes no first-party skills document and no AGENTS.md. This skill is generated
+  by API Evangelist and grounded entirely in tool names and argument shapes read from the
+  provider's own live tools/list response — no operation, parameter or error code in it was
+  invented. The store's own agent instructions point buy-for-me agents at Shopify's
+  cross-store Shop skill (https://shop.app/SKILL.md), which is published by Shopify rather
+  than by Debut and is therefore referenced, not vendored.
+
+not_covered:
+  - Debut's BeautyORB ingredient-discovery platform, skin-genomics dataset and formulation
+    pipeline have no API surface of any kind, so no skill can be grounded in them.

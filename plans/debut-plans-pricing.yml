@@ -1,0 +1,30 @@
+generated: '2026-08-12'
+method: searched
+source: https://www.debutbiotech.com/ + https://www.deinde.com/ (sitemaps walked 2026-08-12)
+
+plan_count: 0
+plans: []
+
+note: >-
+  Debut publishes no API plans, tiers, quotas or developer pricing of any kind, because it
+  sells no API. The corporate site's complete sitemap is ten marketing and policy pages
+  with no pricing page and no developer section. The one agent-reachable API surface — the
+  UCP MCP endpoint on the DEINDE storefront — is free to call and carries no metering,
+  no signup and no commercial terms of its own; it is Shopify commerce plumbing whose
+  business model is the sale of skincare product, not API access.
+
+commercial_model:
+  api_monetized: false
+  what_is_sold: >-
+    Cosmetic active ingredients and finished formulations to beauty manufacturers (B2B,
+    quoted through the contact form), and direct-to-consumer skincare under the DEINDE
+    brand (retail product pricing on the storefront).
+  b2b_pricing: contact-sales
+  b2b_pricing_url: https://www.debutbiotech.com/contact-us
+  consumer_pricing: per-product retail
+  consumer_pricing_url: https://www.deinde.com/collections/all
+  consumer_pricing_machine_readable: >-
+    Product prices are machine-readable through the storefront — search_catalog and
+    get_product on the MCP endpoint return integer minor-unit amounts with an ISO 4217
+    currency code, and /collections/{handle}/products.json returns the same catalog as
+    JSON. That is product pricing, not API pricing.

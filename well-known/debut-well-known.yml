@@ -1,0 +1,88 @@
+generated: '2026-08-12'
+method: probed
+source: live GET of /.well-known/* on every Debut-controlled host
+
+note: >-
+  Two hosts were probed. debutbiotech.com — the corporate site — serves nothing at any
+  /.well-known/ path (clean 404s, 88-byte error body, no SPA catch-all). www.deinde.com
+  — Debut's Shopify-hosted DEINDE storefront — serves real OAuth 2.0 authorization
+  server metadata (RFC 8414), OpenID Provider metadata, protected-resource metadata
+  (RFC 9728) and a UCP merchant profile. The WellKnown pointer in apis.yml is emitted
+  on the strength of the deinde.com hits only.
+
+hosts:
+
+- host: www.debutbiotech.com
+  hits: 0
+  paths:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+
+- host: www.deinde.com
+  hits: 4
+  paths:
+  - path: /.well-known/openid-configuration
+    status: 200
+    content_type: application/json; charset=utf-8
+    file: well-known/debut-openid-configuration.json
+    note: Shopify customer accounts OIDC provider; issuer https://shopify.com/authentication/75476861220.
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    content_type: application/json; charset=utf-8
+    file: well-known/debut-oauth-authorization-server.json
+    note: RFC 8414 authorization server metadata (identical body to the OIDC document).
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    content_type: application/json; charset=utf-8
+    file: well-known/debut-oauth-protected-resource.json
+    note: RFC 9728; resource https://www.deinde.com, bearer token in header.
+  - path: /.well-known/ucp
+    status: 200
+    content_type: application/json; charset=utf-8
+    file: well-known/debut-ucp.json
+    note: Universal Commerce Protocol merchant profile — versions, MCP endpoint, capabilities,
+      payment handlers.
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+
+agent_card: none
+agent_card_note: >-
+  No A2A agent card on either host. Both /.well-known/agent-card.json and the legacy
+  /.well-known/agent.json returned 404 with a real error body on debutbiotech.com and
+  deinde.com, so no a2a/ artifact was written and no AgentCard pointer was emitted.
+
+security_txt: none
+security_txt_note: >-
+  Neither host serves RFC 9116 security.txt, so no SecurityTxt pointer was emitted.

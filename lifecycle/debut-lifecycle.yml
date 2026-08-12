@@ -1,0 +1,68 @@
+generated: '2026-08-12'
+method: probed
+source: https://www.deinde.com/.well-known/ucp + https://www.deinde.com/llms.txt
+
+api: DEINDE Commerce (UCP MCP)
+
+versioning:
+  scheme: date-based protocol version (YYYY-MM-DD)
+  current: '2026-04-08'
+  label: latest stable
+  also_supported:
+  - '2026-01-23'
+  negotiation: >-
+    The merchant profile at /.well-known/ucp lists every supported version with its own
+    per-version discovery document under
+    https://debut-beauty.myshopify.com/.well-known/ucp/<version>. Capability entries carry
+    a requires.protocol.min floor — the fulfillment, discount and dev.shopify.catalog
+    capabilities all require a minimum protocol of 2026-04-08.
+  owner: >-
+    The version line belongs to the Universal Commerce Protocol and to Shopify's
+    implementation of it, not to Debut. Debut has no versioning policy of its own to
+    publish.
+
+deprecation_policy:
+  published: false
+  sunset_header: not documented
+  deprecation_header: not documented
+  note: >-
+    No deprecation or sunset policy is published on either Debut host. The only signal an
+    agent gets is the disappearance of a version from supported_versions in
+    /.well-known/ucp. No StatusPage or Deprecation pointer was emitted, because Debut
+    publishes neither.
+
+status_page:
+  published: false
+  probed:
+  - url: https://www.debutbiotech.com/
+    status: 200
+    note: Ten-page marketing site, no status page in the sitemap.
+  note: >-
+    Debut operates no status page. Availability of the storefront and its MCP endpoint is
+    a function of Shopify's platform status, which Shopify publishes, not Debut.
+
+sla:
+  published: false
+
+changelog:
+  published: false
+  note: >-
+    No dated API changelog exists. The corporate /news page carries company announcements
+    (funding, brand launches, awards), not API release notes, so no ChangeLog pointer was
+    emitted.
+
+deprecated_operations: []
+deprecated_operations_note: No tool in the live tools/list response is marked deprecated.
+
+company_lifecycle:
+  founded: 2019
+  status: operating
+  headquarters: San Diego, California, United States
+  employees: 80+
+  funding_total_usd: ~89000000
+  latest_round:
+    amount_usd: 20000000
+    date: '2025-08'
+    note: Later-stage venture round to expand the AI ingredient-discovery platform and the
+      formulation business in the US and Asia.
+  source: https://www.hiive.com/securities/debut-stock

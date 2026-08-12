@@ -1,0 +1,137 @@
+generated: '2026-08-12'
+method: probed
+source: live tools/list of https://www.deinde.com/api/ucp/mcp (mcp/debut-ucp-mcp-tools.json)
+  + https://www.deinde.com/llms.txt
+
+api: DEINDE Commerce (UCP MCP)
+protocol: Universal Commerce Protocol 2026-04-08 over MCP (JSON-RPC 2.0)
+docs: https://www.deinde.com/llms.txt
+
+auth:
+  style: anonymous for catalog/cart/checkout construction; OAuth 2.0 + OIDC bearer for
+    customer-account operations
+  agent_identity:
+    required: true
+    field: meta.ucp-agent.profile
+    format: uri
+    note: A UCP agent profile URI the merchant fetches and validates on every call.
+  see: authentication/debut-authentication.yml
+
+idempotency:
+  supported: true
+  mechanism: request field
+  field: meta.idempotency-key
+  type: string
+  scope: complete_checkout only
+  required: true
+  applies_to:
+  - complete_checkout
+  not_required_on:
+  - create_cart
+  - update_cart
+  - cancel_cart
+  - create_checkout
+  - update_checkout
+  - cancel_checkout
+  retention: undocumented
+  evidence: >-
+    complete_checkout's inputSchema declares meta.idempotency-key as a required string
+    ("An idempotency key for completing the checkout") alongside meta.ucp-agent. No other
+    tool declares it. Read directly from the live tools/list response, not from prose.
+  assessment: >-
+    Idempotency is present exactly where money moves and nowhere else. Cart and checkout
+    mutation are replay-unsafe by contract: an agent that retries create_cart or
+    update_checkout after a timeout has no server-side dedupe to lean on. Retention
+    window for a replayed key is not published, so an agent cannot know how long a key
+    stays valid.
+
+pagination:
+  style: opaque cursor
+  applies_to:
+  - search_catalog
+  request_field: catalog.pagination.cursor
+  response_field: pagination.cursor
+  default_page_size: undocumented
+  note: >-
+    "Results are paginated, with initial results limited to improve experience. Use the
+    pagination.cursor from the response to fetch additional pages." No page-size parameter
+    and no total count are documented.
+
+money:
+  representation: integer minor units paired with an ISO 4217 currency code
+  shape: '{"amount": 2500, "currency": "USD"}'
+  note: >-
+    Documented inline on every price-bearing tool description: amount is in the currency''s
+    minor units, so 2500 USD is $25.00. Zero-decimal currencies such as JPY are already
+    whole units. Agents must convert before quoting a buyer.
+
+localization:
+  request_field: catalog.context
+  parameters:
+  - address_country (ISO 3166-1 alpha-2)
+  - address_region
+  - postal_code
+  - language (IETF BCP 47)
+  - currency (ISO 4217)
+  - intent
+  note: >-
+    The store's agent instructions specifically direct agents to pass
+    context.address_country and context.currency for accurate pricing and availability.
+
+buyer_signals:
+  request_field: catalog.signals
+  parameters:
+  - dev.ucp.buyer_ip
+  - dev.ucp.user_agent
+  note: Namespaced platform environment data forwarded by the calling agent.
+
+versioning:
+  scheme: date-based protocol version
+  current: '2026-04-08'
+  also_supported:
+  - '2026-01-23'
+  discovery: https://www.deinde.com/.well-known/ucp
+  note: >-
+    Version is a property of the Universal Commerce Protocol, not of Debut. Each supported
+    version has its own discovery document under
+    https://debut-beauty.myshopify.com/.well-known/ucp/<version>.
+  see: lifecycle/debut-lifecycle.yml
+
+errors:
+  envelope: JSON-RPC 2.0 error object
+  shape: 'error: {code, message, data: {code, content, continue_url}}'
+  see: errors/debut-problem-types.yml
+
+rate_limiting:
+  documented: true
+  numbers_published: false
+  signal: 429 + client back-off, per IP
+  headers: undocumented
+  see: rate-limits/debut-rate-limits.yml
+
+request_tracing:
+  request_id: none observed
+  note: No request-id or correlation header was returned on the probed calls; JSON-RPC
+    `id` is the only correlator and it is chosen by the caller.
+
+human_in_the_loop:
+  required_for:
+  - complete_checkout
+  rule: >-
+    Published policy — agents must not complete payment without explicit, contemporaneous
+    buyer consent. Where consent cannot be obtained live, the store directs agents to the
+    Shop skill (https://shop.app/SKILL.md) and Shop Pay instead.
+
+read_only_surface:
+  note: >-
+    Alongside MCP the store publishes an unauthenticated read-only surface for agents that
+    only browse — Shopify's standard JSON endpoints, listed in its own llms.txt.
+  endpoints:
+  - GET /collections/all
+  - GET /products/{handle}
+  - GET /products/{handle}.json
+  - GET /collections/{handle}
+  - GET /collections/{handle}/products.json
+  - GET /search?q={query}&type=product
+  - GET /sitemap.xml
+  - GET /sitemap_agentic_discovery.xml

@@ -1,0 +1,123 @@
+generated: '2026-08-12'
+method: probed
+source: live probes of www.deinde.com and www.debutbiotech.com (see well-known/debut-well-known.yml,
+  mcp/debut-mcp.yml)
+
+api: DEINDE Commerce (UCP MCP)
+note: >-
+  Every assertion below was verified against a document actually fetched on 2026-08-12.
+  Where the answer is false, it is false because the probe missed — not because a claim
+  was disbelieved. Note that the conforming surfaces are all Shopify platform behaviour
+  served from Debut's host; Debut itself ships no first-party contract.
+
+standards:
+
+- id: ucp
+  name: Universal Commerce Protocol
+  version: '2026-04-08'
+  conforms: true
+  evidence: >-
+    https://www.deinde.com/.well-known/ucp returned 200 with a merchant profile declaring
+    versions 2026-04-08 and 2026-01-23, the dev.ucp.shopping service over MCP, and the
+    capabilities cart, checkout, fulfillment, discount, order, catalog.search,
+    catalog.lookup plus the dev.shopify.catalog extension.
+  artifact: well-known/debut-ucp.json
+
+- id: mcp
+  name: Model Context Protocol
+  version: JSON-RPC 2.0 transport, streamable HTTP
+  conforms: true
+  evidence: >-
+    POST https://www.deinde.com/api/ucp/mcp with method tools/list returned 200 and 13
+    tools, each carrying a JSON Schema 2020-12 inputSchema. No authentication required.
+  artifact: mcp/debut-ucp-mcp-tools.json
+
+- id: json-schema
+  name: JSON Schema 2020-12
+  conforms: true
+  evidence: Every tool inputSchema declares $schema https://json-schema.org/draft/2020-12/schema.
+  artifact: mcp/debut-ucp-mcp-tools.json
+
+- id: oauth2
+  name: OAuth 2.0
+  conforms: true
+  evidence: >-
+    Authorization code + refresh token + JWT bearer grants, S256 PKCE, client_secret_basic
+    token endpoint auth, read from /.well-known/oauth-authorization-server (200).
+  artifact: well-known/debut-oauth-authorization-server.json
+
+- id: rfc8414
+  name: OAuth 2.0 Authorization Server Metadata
+  conforms: true
+  evidence: /.well-known/oauth-authorization-server returned 200 with issuer, endpoints,
+    scopes_supported and grant_types_supported.
+  artifact: well-known/debut-oauth-authorization-server.json
+
+- id: rfc9728
+  name: OAuth 2.0 Protected Resource Metadata
+  conforms: true
+  evidence: >-
+    /.well-known/oauth-protected-resource returned 200 naming resource
+    https://www.deinde.com, two authorization servers, and bearer_methods_supported
+    ["header"].
+  artifact: well-known/debut-oauth-protected-resource.json
+
+- id: oidc
+  name: OpenID Connect Discovery 1.0
+  conforms: true
+  evidence: >-
+    /.well-known/openid-configuration returned 200 with issuer, jwks_uri, RS256 id-token
+    signing, and the claims set iss/sub/aud/exp/iat/nonce/sid/email/email_verified.
+  artifact: well-known/debut-openid-configuration.json
+
+- id: idempotency
+  name: Idempotent request keys
+  conforms: partial
+  evidence: >-
+    meta.idempotency-key is required on complete_checkout and declared on no other tool.
+    Cart and checkout mutation have no replay protection, and no retention window is
+    published.
+  artifact: conventions/debut-conventions.yml
+
+- id: pagination
+  name: Cursor pagination
+  conforms: true
+  evidence: search_catalog documents an opaque pagination.cursor round-tripped from the
+    response. No page size or total count is exposed.
+  artifact: conventions/debut-conventions.yml
+
+- id: rfc9457
+  name: Problem Details for HTTP APIs
+  conforms: false
+  evidence: Errors are JSON-RPC 2.0 error objects; no application/problem+json representation
+    is offered.
+  artifact: errors/debut-problem-types.yml
+
+- id: rfc9116
+  name: security.txt
+  conforms: false
+  evidence: /.well-known/security.txt returned 404 on both www.debutbiotech.com and www.deinde.com.
+  artifact: well-known/debut-well-known.yml
+
+- id: a2a
+  name: A2A Agent Card
+  conforms: false
+  evidence: /.well-known/agent-card.json and the legacy /.well-known/agent.json returned
+    404 on both hosts.
+  artifact: well-known/debut-well-known.yml
+
+- id: openapi
+  name: OpenAPI
+  conforms: false
+  evidence: >-
+    No OpenAPI, Swagger, GraphQL SDL or AsyncAPI document exists on any Debut-controlled
+    host. Contract discovery on 2026-08-12 probed the corporate root, the storefront root
+    and DNS for api/app/developer/portal/platform/docs subdomains and found none.
+
+compliance_certifications:
+  published: false
+  note: >-
+    No trust center, SOC 2, ISO 27001, GDPR or HIPAA attestation page is published on
+    debutbiotech.com. Debut is a cosmetic-ingredient manufacturer; its regulatory surface
+    is cosmetics and ingredient safety, not information-security certification, and it
+    publishes nothing of either kind at a linkable URL. No Compliance pointer was emitted.

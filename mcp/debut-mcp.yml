@@ -1,0 +1,143 @@
+generated: '2026-08-12'
+method: probed
+source: https://www.deinde.com/api/ucp/mcp
+
+name: DEINDE Commerce (UCP MCP)
+provider: Debut Biotechnology, Inc.
+status: live
+transport: streamable-http
+url: https://www.deinde.com/api/ucp/mcp
+canonical_url: https://debut-beauty.myshopify.com/api/ucp/mcp
+discovery:
+- url: https://www.deinde.com/.well-known/ucp
+  status: 200
+  note: UCP merchant profile — advertises the MCP transport endpoint, capabilities and
+    payment handlers.
+- url: https://www.deinde.com/llms.txt
+  status: 200
+  note: Store agent instructions; names the MCP endpoint and the tools/list flow.
+- url: https://www.deinde.com/agents.md
+  status: 200
+  note: Canonical agent-facing description; /llms.txt mirrors it.
+
+x-evidence:
+  fetched: '2026-08-12'
+  request: 'POST https://www.deinde.com/api/ucp/mcp {"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+  http_status: 200
+  content_type: application/json; charset=utf-8
+  authentication_required: false
+  tools_returned: 13
+  raw: mcp/debut-ucp-mcp-tools.json
+
+attribution: >-
+  Platform-provided, not first-party. This MCP server is Shopify's native Universal
+  Commerce Protocol implementation, served from Debut's own host (www.deinde.com,
+  Shopify store debut-beauty.myshopify.com). Debut Biotechnology publishes no
+  first-party API, developer portal or OpenAPI of its own; this is the only
+  agent-reachable API surface the company operates.
+
+protocol:
+  name: Universal Commerce Protocol
+  spec: https://ucp.dev
+  versions_supported:
+  - '2026-04-08'
+  - '2026-01-23'
+  version_negotiated: '2026-04-08'
+  services:
+  - id: dev.ucp.shopping
+    transport: mcp
+    schema: https://ucp.dev/2026-04-08/services/shopping/mcp.openrpc.json
+  - id: dev.ucp.shopping
+    transport: embedded
+    schema: https://ucp.dev/2026-04-08/services/shopping/embedded.openrpc.json
+  capabilities:
+  - dev.ucp.shopping.cart
+  - dev.ucp.shopping.checkout
+  - dev.ucp.shopping.fulfillment
+  - dev.ucp.shopping.discount
+  - dev.ucp.shopping.order
+  - dev.ucp.shopping.catalog.search
+  - dev.ucp.shopping.catalog.lookup
+  - dev.shopify.catalog
+
+tools:
+- name: search_catalog
+  category: catalog
+  description: Search for products from the online store, hosted on Shopify.
+  arguments: [meta, catalog]
+- name: lookup_catalog
+  category: catalog
+  description: Look up multiple products or variants by identifier.
+  arguments: [meta, catalog]
+- name: get_product
+  category: catalog
+  description: Retrieve complete product detail by identifier. Returns a singular product.
+  arguments: [meta, catalog]
+- name: create_cart
+  category: cart
+  description: Creates a new cart.
+  arguments: [meta, cart]
+- name: get_cart
+  category: cart
+  description: Get the cart contents.
+  arguments: [meta, id]
+- name: update_cart
+  category: cart
+  description: Perform updates to a cart.
+  arguments: [meta, cart, id]
+- name: cancel_cart
+  category: cart
+  description: Cancels a cart.
+  arguments: [meta, id]
+- name: create_checkout
+  category: checkout
+  description: Creates a checkout. Returns checkout details, including line items, totals,
+    discounts and taxes.
+  arguments: [meta, checkout]
+- name: get_checkout
+  category: checkout
+  description: Returns details about the checkout, including line items, totals, and
+    any applicable discounts or taxes.
+  arguments: [meta, id]
+- name: update_checkout
+  category: checkout
+  description: Updates a checkout (shipping address, fulfillment method, payment).
+  arguments: [meta, checkout, id]
+- name: complete_checkout
+  category: checkout
+  description: Completes a checkout and returns the checkout result. Requires a buyer-approved
+    payment and an idempotency key.
+  arguments: [meta, checkout, id]
+  idempotent: true
+  idempotency_key: meta.idempotency-key
+- name: cancel_checkout
+  category: checkout
+  description: Cancels a checkout.
+  arguments: [meta, id]
+- name: get_order
+  category: order
+  description: Get the details of an order.
+  arguments: [meta, id]
+
+tool_count: 13
+schemas_published: true
+schema_note: >-
+  Every tool returns a complete JSON Schema 2020-12 inputSchema from the live
+  tools/list call — captured verbatim in mcp/debut-ucp-mcp-tools.json. No
+  authenticated introspection was required.
+
+authentication:
+  anonymous_tools_list: true
+  buyer_auth: >-
+    Catalog, cart and checkout construction are reachable anonymously. Payment
+    completion requires a buyer-approved payment instrument; customer-account
+    operations use the Shopify OAuth/OIDC authorization server advertised at
+    https://www.deinde.com/.well-known/oauth-authorization-server.
+  see: authentication/debut-authentication.yml
+
+related:
+  agent_skill: https://shop.app/SKILL.md
+  agent_skill_note: >-
+    The store's own llms.txt recommends the cross-store Shop skill for
+    buy-for-me agents rather than direct storefront scripting. That skill is
+    published by Shopify, not by Debut.

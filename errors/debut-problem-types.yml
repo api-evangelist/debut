@@ -1,0 +1,74 @@
+generated: '2026-08-12'
+method: probed
+source: live tools/call against https://www.deinde.com/api/ucp/mcp
+
+api: DEINDE Commerce (UCP MCP)
+format: jsonrpc-2.0-error
+rfc9457: false
+note: >-
+  The endpoint is JSON-RPC 2.0 over HTTP, not a REST API, so errors arrive as a JSON-RPC
+  error object rather than an application/problem+json document. Debut publishes no error
+  reference of its own; the entries below are what was actually observed on the wire plus
+  the one failure mode its published agent instructions name explicitly. This is an
+  incomplete catalog by construction — only errors that could be triggered without moving
+  money were probed.
+
+envelope:
+  transport_status: HTTP status is carried alongside the JSON-RPC error (422 observed on
+    a semantic failure, 200 on success)
+  shape: |
+    {"jsonrpc":"2.0","id":<id>,"error":{"code":<int>,"message":"<string>",
+     "data":{"code":"<machine_slug>","content":"<detail>","continue_url":"<url>"}}}
+  machine_readable_field: error.data.code
+  human_readable_field: error.message
+  recovery_hint_field: error.data.continue_url
+
+errors:
+
+- code: -32001
+  data_code: profile_malformed
+  http_status: 422
+  title: UCP discovery failed
+  detail: >-
+    Unable to fetch agent profile — the URI supplied in meta.ucp-agent.profile could not
+    be retrieved, or was retrieved with a content type the merchant would not accept.
+  remediation: >-
+    Publish a fetchable UCP agent profile at a stable URL served with the content type UCP
+    expects, and pass its URI in meta.ucp-agent.profile on every call.
+  observed: true
+  observed_on: '2026-08-12'
+  observed_via: 'tools/call search_catalog with meta.ucp-agent.profile set to an ordinary
+    HTML page'
+  continue_url_returned: https://debut-beauty.myshopify.com/
+
+- code: null
+  data_code: null
+  http_status: 429
+  title: Rate limited
+  detail: The MCP endpoint is rate-limited per IP.
+  remediation: Back off and retry.
+  observed: false
+  source: https://www.deinde.com/llms.txt
+  note: >-
+    Documented in the store's own agent instructions ("Respect rate limits. The MCP
+    endpoint is rate-limited per IP. Back off on 429 responses."). Not triggered during
+    this pass — no threshold, no Retry-After contract and no header set is published.
+
+- code: null
+  data_code: null
+  http_status: 406
+  title: Not Acceptable
+  detail: >-
+    The endpoint rejects requests that do not offer an acceptable response media type.
+  remediation: 'Send Accept: application/json, text/event-stream.'
+  observed: true
+  observed_on: '2026-08-12'
+  observed_via: POST to a Shopify MCP path without an Accept header
+
+gaps:
+- No published error reference, error-code table or status-code contract exists on either
+  debutbiotech.com or deinde.com.
+- Payment, fulfillment and discount failure modes (declines, out-of-stock at checkout,
+  address validation, expired carts) could not be probed without moving real money, so
+  they are absent here rather than known to be absent.
+- No application/problem+json (RFC 9457) representation is offered.
