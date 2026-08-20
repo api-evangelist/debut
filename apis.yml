@@ -34,6 +34,18 @@ tags:
 - Synthetic Biology
 - Artificial Intelligence
 - Manufacturing
+- E-Commerce
+- Agentic Commerce
+tags_raw:
+- Company
+- Biotechnology
+- Beauty
+- Cosmetics
+- Skincare
+- Ingredients
+- Synthetic Biology
+- Artificial Intelligence
+- Manufacturing
 - Ecommerce
 - Agentic Commerce
 apis:
@@ -49,6 +61,12 @@ apis:
   humanURL: https://www.deinde.com/llms.txt
   baseURL: https://www.deinde.com/api/ucp/mcp
   tags:
+  - E-Commerce
+  - Agentic Commerce
+  - MCP
+  - UCP
+  - Shopify
+  tags_raw:
   - Ecommerce
   - Agentic Commerce
   - MCP
