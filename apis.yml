@@ -15,6 +15,17 @@ description: 'Debut (Debut Biotechnology, Inc.) is a San Diego, California biote
   agent-reachable API surface is the Shopify-hosted Universal Commerce Protocol (UCP)
   MCP endpoint on its DEINDE storefront at www.deinde.com, which is live, unauthenticated
   for catalog and cart operations, and returns full JSON Schema tool definitions.'
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://cdn.prod.website-files.com/697a5ef4d9ca0a3187500d0b/697a5ef4d9ca0a3187500d47_Debut-Favicon.png
 url: https://raw.githubusercontent.com/api-evangelist/debut/refs/heads/main/apis.yml
 x-type: company
