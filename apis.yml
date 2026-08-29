@@ -28,6 +28,9 @@ deliveryModel:
   method: derived
 image: https://cdn.prod.website-files.com/697a5ef4d9ca0a3187500d0b/697a5ef4d9ca0a3187500d47_Debut-Favicon.png
 url: https://raw.githubusercontent.com/api-evangelist/debut/refs/heads/main/apis.yml
+x-api-posture: no-product-api
+x-api-posture-basis: observed
+x-api-posture-note: "Debut sells molecules and formulations rather than software: debutbiotech.com publishes no developer program, no public API and no machine-readable API contract."
 x-type: company
 x-source: harvest:secondary-market
 x-tier: stub
