@@ -64,5 +64,113 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Debut is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://www.hiive.com/securities/debut-stock
+Debut (Debut Biotechnology, Inc.) is a San Diego, California biotechnology company founded in 2019 by Dr. Joshua Britton that combines AI-driven molecular discovery, skin genomics and cell-free biomanufacturing to create novel cosmetic active ingredients and finished skincare formulations. Its BeautyORB platform screens billions of candidate molecules in silico against a skin-health genomic dataset, and the company is vertically integrated from discovery through fermentation, scale-up and formulation, selling ingredients and brand-ready products to beauty manufacturers as well as running its own direct-to-consumer skincare brand, DEINDE. Debut has raised roughly $89M across Series A, Series B (led by BOLD, the L'Oreal venture fund) and later rounds, employs more than 80 people, and was named to the TIME100 Most Innovative Companies 2025. Debut sells molecules and formulations rather than software: debutbiotech.com publishes no developer program, no public API and no machine-readable API contract. Its only agent-reachable API surface is the Shopify-hosted Universal Commerce Protocol (UCP) MCP endpoint on its DEINDE storefront at www.deinde.com, which is live, unauthenticated for catalog and cart operations, and returns full JSON Schema tool definitions.
+
+**Areas:** Company · Biotechnology · Beauty · Cosmetics · Skincare · Ingredients · Synthetic Biology · Artificial Intelligence · Manufacturing · E-Commerce · Agentic Commerce
+
+## Debut on APIs.io
+
+Everything profiled for Debut is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/debut/](https://apis.io/providers/debut/)** — or go straight to one of the APIs or properties below.
+
+### APIs (1)
+
+- [DEINDE Commerce (UCP MCP)](https://apis.io/apis/debut/deinde-commerce-ucp-mcp/) — The agent-facing commerce API for Debut's direct-to-consumer skincare brand DEINDE. It is a Shopify-hosted Universal Commerce Protocol (UCP) service exposed…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [DEINDE Commerce (UCP MCP)](https://apis.io/servers/debut/deinde-commerce-ucp-mcp/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Debut Authentication](https://apis.io/security/debut/debut-authentication/)
+- [Debut Domain Security](https://apis.io/security/debut/debut-domain-security/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Debut Scopes](https://apis.io/scopes/debut/debut-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Debut Plans Pricing](https://apis.io/plans/debut/debut-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Debut Rate Limits](https://apis.io/rate-limits/debut/debut-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.debutbiotech.com/)
+- [Documentation](https://www.deinde.com/agents.md)
+- [Support](https://www.debutbiotech.com/contact-us)
+- [Blog](https://www.debutbiotech.com/news)
+- [Terms of service](https://www.debutbiotech.com/terms-of-use)
+- [Privacy policy](https://www.debutbiotech.com/privacy-policy)
+
+## API Evangelist rating
+
+**Kin Score 22.3** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.3 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 30.4 |
+| Access clarity | 21.1 |
+
+**Agent readiness 15.1** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | platform (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | documented (partial credit) |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | platform (partial credit) |
+
+**Regulatory alignment 31.8** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/debut/](https://apis.io/providers/debut/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Debut: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/debut/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
